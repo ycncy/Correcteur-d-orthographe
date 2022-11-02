@@ -1,21 +1,31 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 
 public class Dictionary {
 
     private Set<String> words = new TreeSet<>();
-    private int[] distance;
+    private Map<String, List<String>> trigrams;
 
-    public Dictionary(List<String> words) {
-        this.words.addAll(words);
+    public Dictionary(String path) throws IOException {
+        File file = new File(path);
+        BufferedReader buffer = new BufferedReader(new FileReader(file));
+        String lines;
+        while ((lines = buffer.readLine()) != null) words.add(lines);
+        trigrams = Trigram.buildTrigrams(words.stream().toList());
     }
 
-    public int levenshteinDistance(String word1, String word2) {
-        if (word1.isEmpty()) return word2.length();
-        if (word2.isEmpty()) return word1.length();
-        if (word1.charAt(0) == word2.charAt(0)) return levenshteinDistance(word1.substring(1), word2.substring(1));
-        return Math.min(Math.min(levenshteinDistance(word1.substring(1), word2) + 1, levenshteinDistance(word1, word2.substring(1)) + 1), levenshteinDistance(word1.substring(1), word2.substring(1)) + 1);
+    public boolean contains(String word) {
+        for (String dictionaryWord : words) {
+            if (dictionaryWord.equals(word)) return true;
+        }
+        return false;
+    }
+
+    public Map<String, List<String>> getTrigrams() {
+        return trigrams;
+    }
+
+    public Object[] getWords() {
+        return words.toArray();
     }
 }
