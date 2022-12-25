@@ -24,8 +24,4 @@ public class Dictionary {
     public Map<String, List<String>> getTrigrams() {
         return trigrams;
     }
-
-    public Object[] getWords() {
-        return words.toArray();
-    }
 }

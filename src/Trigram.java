@@ -20,7 +20,7 @@ public class Trigram {
         return trigrams;
     }
 
-    /*public static int dynamicLevenshteinDistance(String word1, String word2) {
+    public static int dynamicLevenshteinDistance(String word1, String word2) {
         int[][] dynamicTab = new int[word1.length() + 1][word2.length() + 1];
 
         for (int i = 0; i <= word1.length(); i++) dynamicTab[i][0] = i;
@@ -35,7 +35,7 @@ public class Trigram {
             }
         }
         return dynamicTab[word1.length()][word2.length()];
-    }*/
+    }
 
     public static int levenshteinDistance(String word1, String word2) {
         if (word1.isEmpty()) return word2.length();
